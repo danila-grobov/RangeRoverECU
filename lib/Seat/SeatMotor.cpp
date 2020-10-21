@@ -3,7 +3,7 @@
 #include <SeatSensor.h>
 #include <CurrentSensor.h>
 #include <EEPROM.h>
-
+#include <Multiplexer.h>
 SeatMotor::SeatMotor(int id, CurrentSensor* cS):sS(id) {
     hitState = 0;
     this->id = id;
@@ -17,18 +17,17 @@ void SeatMotor::drive( int dir ) {
     if(cS->getCurrent() < 9) {
         if(this->hitState != dir){
             if(sS.sensorActive()) {
-                // Serial.println(position);
                 position += dir;
                 EEPROM.write(8 + id,position);    
             }
             if (dir == -1) {
-                digitalWrite(6,1);
+                digitalWrite(A2,1);
                 state = -1;
             } else {
-                digitalWrite(6,0);
+                digitalWrite(A2,0);
                 state = 1;
             }
-            digitalWrite(7,1);
+            U2.write(id+4,1);
             this->hitState = 0;
         }
     } else {

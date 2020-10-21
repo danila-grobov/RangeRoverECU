@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <CurrentSensor.h>
 #include <SeatSensor.h>
+#include <Multiplexer.h>
 class SeatMotor{
     private:
         int id;
@@ -21,7 +22,7 @@ class SeatMotor{
         }
         int getHitState() {return hitState;}
         bool enabled() {return state!=0;}
-        void stop() {   state = 0; digitalWrite(7,0); }
+        void stop() {   state = 0; U2.write(id+4,0); }
         void calibrate();
         void savePosition(int memoryPosition);
         void driveToSavedPos(int memoryPosition);
