@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <MirrorMotor.h>
+#include <Multiplexer.h>
 
 MirrorMotor::MirrorMotor(int id) {
     this->id = id;
@@ -9,17 +10,12 @@ MirrorMotor::MirrorMotor() {
     state = 0;
 }
 void MirrorMotor::drive( int dir ) {
-
-    Serial.print(id);
-    Serial.print(" ");
-    Serial.println(dir);
     if (dir == -1) {
-        digitalWrite(6,1);
+        digitalWrite(A2,1);
         state = -1;
     } else {
-        digitalWrite(6,0);
+        digitalWrite(A2,0);
         state = 1;
     }
-    digitalWrite(7,1);
-
+    U2.write(id, 1);
 }

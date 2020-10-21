@@ -50,7 +50,7 @@ MirrorMotorController mirrController(&mirrBA);
 void loop() {
     cSensor.update();
     controller.update();
-    // mirrController.update();
+    mirrController.update();
     mBA.update();
     mBA.handleButtonFunctions(cC,controller);
     cC.update(mBA,controller);

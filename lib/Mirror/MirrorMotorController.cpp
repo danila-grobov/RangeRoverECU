@@ -6,7 +6,7 @@
 
 MirrorMotorController::MirrorMotorController( MirrorButtonAggregator* mirrBA) {
     this->mirrBA = mirrBA;
-    for(int i=0;i<2;i++) {
+    for(int i=0;i<4;i++) {
         motors[i] = MirrorMotor(i);
     }
 }
@@ -18,8 +18,8 @@ void MirrorMotorController::update() {
         MirrorButton button = mirrBA->getButtonById(pressedButtonId);
         int dir = button.getDir();
         int selectedMirrorId = button.selectedMirrorId();
-        if(otherMotorsOFF(motorId) &&  selectedMirrorId != -1){
-            motors[motorId].drive(dir);
+        if(otherMotorsOFF(motorId) && selectedMirrorId != -1){
+            motors[motorId + 2*selectedMirrorId].drive(dir);
         }
     }  else {
         stopMotors();
@@ -28,7 +28,7 @@ void MirrorMotorController::update() {
 }
 
 void MirrorMotorController::stopMotors() {
-    for(int i=0;i<2;i++) {
+    for(int i=0;i<4;i++) {
         motors[i].stop();
     }
 }

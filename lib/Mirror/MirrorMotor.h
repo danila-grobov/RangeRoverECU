@@ -2,6 +2,8 @@
 #define MIRRORMOTOR
 
 #include <Arduino.h>
+#include <Multiplexer.h>
+
 class MirrorMotor {
     private:
         int id;
@@ -11,7 +13,7 @@ class MirrorMotor {
         MirrorMotor();
         void drive( int dir);
         bool enabled() {return state!=0;}
-        void stop() {   state = 0; digitalWrite(7,0); }
+        void stop() {   state = 0; U2.write(id, 0); }
 };
 
 #endif
