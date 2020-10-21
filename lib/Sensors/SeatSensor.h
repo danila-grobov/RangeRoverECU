@@ -3,7 +3,6 @@
     class SeatSensor {
         private:
             int id;
-            bool wasHit;
             bool isHit();
             int hitCount = 0;
         public:
