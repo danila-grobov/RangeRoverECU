@@ -9,6 +9,7 @@ MPlexer::MPlexer(uint8_t A_pin, uint8_t B_pin,uint8_t C_pin,uint8_t IO_pin) {
 }
 
 void MPlexer::write(int pos, int bit) {
+    pinMode(IO_pin,OUTPUT);
     switchPin(pos);
     digitalWrite(IO_pin, bit);
 }
@@ -19,7 +20,12 @@ void MPlexer::switchPin(int pos) {
     digitalWrite(C_pin,combos[pos][2]);
 }
 
-bool MPlexer::read(int pos) {
+bool MPlexer::read(int pos, bool pullUp) {
+    if(pullUp)
+        pinMode(IO_pin,INPUT_PULLUP);
+    else 
+        pinMode(IO_pin,INPUT);
+        
     switchPin(pos);
     return digitalRead(IO_pin);
 }
