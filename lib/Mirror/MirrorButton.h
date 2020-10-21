@@ -11,7 +11,7 @@ class MirrorButton {
             {0,1,0}
         };
         void switchGRND();
-        void switchToButton();
+        int getAdjustedId();
     public: 
         MirrorButton();
         void setId(int id);
