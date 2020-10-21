@@ -8,9 +8,8 @@ SeatButton::SeatButton() {
 
 void SeatButton::updateState() {
     switchGRND();
-    switchToButton();
-    digitalWrite(2,1);
-    if (digitalRead(13) == 0) {
+    int adjustedId = getAdjustedId();
+    if (U3.read(adjustedId+4, 1) == 0) {
         pressed = 1;
     } else {
         pressed = 0;
@@ -35,16 +34,10 @@ void SeatButton::switchGRND() {
     }
 }
 
-void SeatButton::switchToButton() {
-    int adjustedId;
-
+int SeatButton::getAdjustedId() {
     if(id < 4) {
-        adjustedId = id;
+        return id;
     } else {
-        adjustedId = id - 4;
+        return id - 4;
     }
-
-    digitalWrite(10, pinCombos[adjustedId][0]);
-    digitalWrite(11, pinCombos[adjustedId][1]);
-    digitalWrite(12, pinCombos[adjustedId][2]);
 }

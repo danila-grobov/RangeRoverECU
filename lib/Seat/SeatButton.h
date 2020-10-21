@@ -13,7 +13,7 @@ class SeatButton {
             {1,1,0}
         };
         void switchGRND();
-        void switchToButton();
+        int getAdjustedId();
     public: 
         SeatButton();
         void setId(int id);
