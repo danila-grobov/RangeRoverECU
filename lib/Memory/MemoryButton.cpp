@@ -1,5 +1,6 @@
 #include <MemoryButton.h>
 #include <Arduino.h>
+#include <Multiplexer.h>
 MemoryButton::MemoryButton() {
     pressed = 0;
     clicked = 0;
@@ -10,15 +11,10 @@ void MemoryButton::setId(int id) {
 }
 
 void MemoryButton::updateState() {
-    pinMode(8, INPUT_PULLUP);
 
-    digitalWrite(A4, pinCombos[id][0]);
-    digitalWrite(A5, pinCombos[id][1]);
-    digitalWrite(9, pinCombos[id][2]);
+    U3.write(2,0);
 
-    digitalWrite(2, 0);
-
-    if(!digitalRead(8) == 0) {
+    if(!U3.read(id+1, 1) == 0) {
         if(pressed == 1 && clicked != 1 && millis() - lastClickTime >= 100 ) {
             clicked = 1;
             lastClickTime = millis();
