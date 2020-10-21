@@ -11,7 +11,7 @@ class MemoryButtonAggregator{
         MemoryButtonAggregator();
         int getClickedButton();
         void update();
-        void handleButtonFunctions(CalibrationController cC, MotorController mC);
+        void handleButtonFunctions(CalibrationController cC, MotorController mC, MirrorMotorController mMC);
 };
 
 #endif
