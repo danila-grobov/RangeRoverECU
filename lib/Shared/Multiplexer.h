@@ -19,4 +19,9 @@
             void write(int pos, int bit);
             bool read(int pos, bool poolUp);
     };
+
+    MPlexer U1(8,9,10,A0);
+    MPlexer U2(11,12,13,A1);
+    MPlexer U3(5,6,7,A3);
+    MPlexer U4(2,3,4,A4);
 #endif
