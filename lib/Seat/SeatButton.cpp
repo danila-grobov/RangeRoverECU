@@ -1,6 +1,6 @@
 #include <SeatButton.h>
 #include <Arduino.h>
-
+#include <Multiplexer.h>
 SeatButton::SeatButton() {
     pressed = 0;
     dir = 0;
@@ -28,19 +28,11 @@ void SeatButton::setId(int id) {
 }
 
 void SeatButton::switchGRND() {
-    pinMode(8,OUTPUT);
-
     if(this->id < 4) {
-        digitalWrite(A4, 1);
-        digitalWrite(A5, 1);
-        digitalWrite(9, 1);
+        U1.write(0,0);
     } else {
-        digitalWrite(A4, 1);
-        digitalWrite(A5, 1);
-        digitalWrite(9, 0);
+        U1.write(1,0);
     }
-
-    digitalWrite(8, 0);
 }
 
 void SeatButton::switchToButton() {
