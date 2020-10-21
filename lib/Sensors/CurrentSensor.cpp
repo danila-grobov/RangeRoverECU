@@ -5,10 +5,7 @@ CurrentSensor::CurrentSensor() {
 }
 
 void CurrentSensor::update() {
-    digitalWrite(A0, 0);
-    digitalWrite(A1, 1);
-    digitalWrite(A2, 1);
-    int sensorValue = analogRead(A3) - 510;
+    int sensorValue = analogRead(A5) - 510;
 
     currentArr[currArrPos] = abs(sensorValue) * 0.04;
     if(currArrPos < 79) {
