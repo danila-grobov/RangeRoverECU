@@ -58,21 +58,19 @@ int MotorController::buttonToMotorId(int buttonId) {
 
 void MotorController::calibrate() {
     if(otherMotorsOFF(-1)) {
-        // for(int i=0;i<4;i++) {
-        //     motors[i].calibrate();
-        // }
-        motors[0].calibrate();
+        for(int i=0;i<4;i++) {
+            motors[i].calibrate();
+        }
     }
 }
 
 void MotorController::savePositions( int memoryPosition) {
-     for(int i=0;i<4;i++) {
+    for(int i=0;i<4;i++) {
         motors[i].savePosition(memoryPosition);
     }
 }
 void MotorController::driveToPositions( int memoryPosition) {
-    //  for(int i=0;i<4;i++) {
-    //     motors[i].driveToSavedPos(memoryPosition);
-    // }
-    motors[0].driveToSavedPos(memoryPosition);
+     for(int i=0;i<4;i++) {
+        motors[i].driveToSavedPos(memoryPosition);
+    }
 }

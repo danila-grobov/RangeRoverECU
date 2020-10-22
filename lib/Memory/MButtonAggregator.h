@@ -3,6 +3,7 @@
 
 #include <MemoryButton.h>
 #include <CalibrationController.h>
+#include <MirrorMotorController.h>
 
 class MemoryButtonAggregator{
     private:

@@ -7,13 +7,15 @@
 class MirrorMotorController{
     private:
         MirrorButtonAggregator* mirrBA;
-        MirrorMotor* motors = new MirrorMotor[2];
+        MirrorMotor* motors;
         void stopMotors();
         int buttonToMotorId(int buttonId);
     public: 
         MirrorMotorController( MirrorButtonAggregator* mirrorBA);
         bool otherMotorsOFF(int ignoreId);
         void update();
+        void savePositions(int memoryPosition);
+        void driveToPositions(int memoryPosition);
 };
 
 #endif

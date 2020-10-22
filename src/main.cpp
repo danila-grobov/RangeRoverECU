@@ -52,8 +52,7 @@ void loop() {
     controller.update();
     mirrController.update();
     mBA.update();
-    mBA.handleButtonFunctions(cC,controller);
+    mBA.handleButtonFunctions(cC,controller,mirrController);
     cC.update(mBA,controller);
-// digitalWrite(6,1);
 }
 

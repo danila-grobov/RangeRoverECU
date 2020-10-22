@@ -18,10 +18,11 @@
             MPlexer(uint8_t A_pin,uint8_t B_pin,uint8_t C_pin,uint8_t IO_pin);
             void write(int pos, int bit);
             bool read(int pos, bool poolUp);
+            int aRead(int pos);
     };
 
-    MPlexer U1(8,9,10,A0);
-    MPlexer U2(11,12,13,A1);
-    MPlexer U3(5,6,7,A3);
-    MPlexer U4(2,3,4,A4);
+    extern MPlexer U1;
+    extern MPlexer U2;
+    extern MPlexer U3;
+    extern MPlexer U4;
 #endif

@@ -8,17 +8,18 @@ SeatMotor::SeatMotor(int id, CurrentSensor* cS):sS(id) {
     hitState = 0;
     this->id = id;
     this->cS = cS;
-    position = EEPROM.read(8 + id);
+    EEPROM.get(id*sizeof(int),position);
     state = 0;
 }
 void SeatMotor::drive( int dir ) {
     sS.update();
     cS->update();
+
     if(cS->getCurrent() < 9) {
         if(this->hitState != dir){
             if(sS.sensorActive()) {
                 position += dir;
-                EEPROM.write(8 + id,position);    
+                EEPROM.put(id*sizeof(int),position);    
             }
             if (dir == -1) {
                 digitalWrite(A2,1);
@@ -57,22 +58,31 @@ void SeatMotor::calibrate() {
 }
 
 void SeatMotor::savePosition(int memoryPosition) {
-    EEPROM.write(id+memoryPosition*4, position);
+    EEPROM.put(getDataPos(memoryPosition), position);
 }
+
+int SeatMotor::getDataPos(int memoryPosition) {
+    if(memoryPosition == 0) {
+        return (id+4) * sizeof(int);
+    } else {
+        return (id + 12) * sizeof(int);
+    }
+}
+
 void SeatMotor::driveToSavedPos(int memoryPosition) {
-    int desitination = EEPROM.read(id+memoryPosition*4);
+    
+    int desitination;
+    EEPROM.get(getDataPos(memoryPosition), desitination);
     
     cS->reset();
     if(position < desitination) {
         while(position < desitination && hitState != 1){
             drive(1);
-            Serial.println(position);
         }
     }
     if(position > desitination) {
         while(position > desitination && hitState != -1) {
             drive(-1);
-            Serial.println(position);
         }
     }    
     stop();

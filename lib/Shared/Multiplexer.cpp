@@ -29,3 +29,15 @@ bool MPlexer::read(int pos, bool pullUp) {
     switchPin(pos);
     return digitalRead(IO_pin);
 }
+
+int MPlexer::aRead(int pos) {
+    pinMode(IO_pin,INPUT);
+    switchPin(pos);
+
+    return analogRead(IO_pin);
+}
+
+MPlexer U1(8,9,10,A0);
+MPlexer U2(11,12,13,A1);
+MPlexer U3(5,6,7,A3);
+MPlexer U4(2,3,4,A4);

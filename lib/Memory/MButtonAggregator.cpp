@@ -31,16 +31,20 @@ void MemoryButtonAggregator::handleButtonFunctions(CalibrationController cC, Mot
         if(clickedButtonId == 1) {
             if(cC.inSaveMode()) {
                 mC.savePositions(0);
+                mMC.savePositions(0);
             } else {
                 mC.driveToPositions(0);
+                mMC.driveToPositions(0);
             }
         }
 
         if(clickedButtonId == 2) {
             if(cC.inSaveMode()) {
                 mC.savePositions(1);
+                mMC.savePositions(1);
             } else {
                 mC.driveToPositions(1);
+                mMC.driveToPositions(1);
             }
         }
     }

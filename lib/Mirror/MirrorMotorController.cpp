@@ -6,9 +6,12 @@
 
 MirrorMotorController::MirrorMotorController( MirrorButtonAggregator* mirrBA) {
     this->mirrBA = mirrBA;
-    for(int i=0;i<4;i++) {
-        motors[i] = MirrorMotor(i);
-    }
+    motors = new MirrorMotor[4]{
+        {0},
+        {1},
+        {2},
+        {3}
+    };
 }
 
 void MirrorMotorController::update() {    
@@ -46,4 +49,15 @@ int MirrorMotorController::buttonToMotorId(int buttonId) {
     if(buttonId == 0 || buttonId == 1) return 0;
     if(buttonId == 2 || buttonId == 3) return 1;
     return -1;
+}
+
+void MirrorMotorController::savePositions( int memoryPosition) {
+    for(int i=0;i<4;i++) {
+        motors[i].savePosition(memoryPosition);
+    }
+}
+void MirrorMotorController::driveToPositions( int memoryPosition) {
+     for(int i=0;i<4;i++) {
+        motors[i].driveToSavedPos(memoryPosition);
+    }
 }

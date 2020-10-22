@@ -13,6 +13,7 @@ class SeatMotor{
         int hitState;
         CurrentSensor* cS;
         SeatSensor sS;
+        int getDataPos(int memoryPosition);
     public: 
         SeatMotor(int id, CurrentSensor* cS);
         SeatMotor();
