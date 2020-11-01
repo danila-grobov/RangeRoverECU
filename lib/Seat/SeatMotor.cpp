@@ -34,7 +34,6 @@ void SeatMotor::drive( int dir ) {
     } else {
         this->hitState = dir;
         stop();
-        
     }
 }
 

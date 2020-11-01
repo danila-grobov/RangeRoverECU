@@ -1,21 +1,33 @@
 #include <Arduino.h>
 #include <MirrorMotor.h>
 #include <Multiplexer.h>
+#include <CurrentSensor.h>
 #include <EEPROM.h>
 
-MirrorMotor::MirrorMotor(int id):mS(id) {
+MirrorMotor::MirrorMotor(int id, CurrentSensor* cS):mS(id) {
+    this->cS = cS;
     this->id = id;
     state = 0;
+    this->hitState = 0;
 }
 void MirrorMotor::drive( int dir ) {
-    if (dir == -1) {
-        digitalWrite(A2,1);
-        state = -1;
+    cS->update();
+    if(cS->getCurrent() < 3) {
+        if(this->hitState != dir){
+            if (dir == -1) {
+                digitalWrite(A2,1);
+                state = -1;
+            } else {
+                digitalWrite(A2,0);
+                state = 1;
+            }
+            U2.write(id, 1);
+            this->hitState = 0;
+        }
     } else {
-        digitalWrite(A2,0);
-        state = 1;
+        this->hitState = dir;
+        stop();
     }
-    U2.write(id, 1);
 }
 
 void MirrorMotor::savePosition(int memoryPosition) {
@@ -36,13 +48,14 @@ void MirrorMotor::driveToSavedPos(int memoryPosition) {
     int desitination;
     EEPROM.get(getDataPos(memoryPosition), desitination);
     
+    cS->reset();
     if(position < desitination) {
-        while(position < desitination){
+        while(position < desitination  && hitState != 1){
             drive(1);
         }
     }
     if(position > desitination) {
-        while(position > desitination) {
+        while(position > desitination  && hitState != -1) {
             drive(-1);
         }
     }    

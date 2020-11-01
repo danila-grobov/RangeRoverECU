@@ -3,15 +3,18 @@
 
 #include <Arduino.h>
 #include <Multiplexer.h>
+#include <CurrentSensor.h>
 #include <MirrorSensor.h>
 class MirrorMotor {
     private:
         int id;
         int state;
         MirrorSensor mS;
+        int hitState;
+        CurrentSensor* cS;
         int getDataPos(int memoryPosition);
     public: 
-        MirrorMotor(int id);
+        MirrorMotor(int id, CurrentSensor* cS);
         MirrorMotor();
         void drive( int dir);
         bool enabled() {return state!=0;}
